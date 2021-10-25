@@ -1,0 +1,24 @@
+{
+  "persons": [
+    {
+      "id": 1,
+      "firstName": "Pavel",
+      "lastName": "Nikalaichyk"
+    },
+    {
+      "id": 2,
+      "firstName": "Dmitry",
+      "lastName": "Kuzuberdin"
+    },
+    {
+      "id": 3,
+      "firstName": "Artsyom",
+      "lastName": "Nikalaichyk"
+    },
+    {
+      "id": 4,
+      "firstName": "Natali",
+      "lastName": "Nikalaichyk-Volkova"
+    }
+  ]
+}
