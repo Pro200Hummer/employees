@@ -5,7 +5,7 @@ export type PersonType = {
 }
 export type AddPersonRequestType = {
     firstName: string
-    lastName: 'Yo'
+    lastName: string
 }
 export type DeletePersonRequestType = {
     id: number
@@ -13,5 +13,5 @@ export type DeletePersonRequestType = {
 export type UpdatePersonRequestType = {
     id: number
     firstName: string
-    lastName: 'Wow'
+    lastName: string
 }

@@ -2,12 +2,17 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type ModalStatusType = 'no-status' | 'add-person' | 'update-person' | 'delete-person'
 
+export type ItemNameType = {
+    firstName: string
+    lastName: string
+}
+
 export type ModalType = {
     isShow: boolean
     modalStatus: ModalStatusType
     modalTitle: string
-    itemId?: number | null
-    itemTitle?: string | null
+    itemId?: number
+    itemName?: ItemNameType | null
 }
 
 export type AppInitialStateType = {
@@ -21,7 +26,7 @@ export const appSlice = createSlice({
           isShow: false,
           modalTitle: '',
           modalStatus: 'no-status',
-          itemId: null,
+          itemId: 0,
           itemTitle: null
       }
     } as AppInitialStateType,

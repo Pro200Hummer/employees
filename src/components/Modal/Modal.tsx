@@ -14,19 +14,26 @@ export const Modal: FC<ModalPropsType> = props => {
     const {modal, modalActions} = props
 
     const setModal = () => {
-        switch (props.modal.modalStatus){
+        switch (props.modal.modalStatus) {
             case "add-person":
                 return <InputModal
                     title={modal.modalTitle}
                     onClose={modalActions.closeModal}
+                    actionCallback={modalActions.addPerson}
                 />
             case "update-person":
                 return <InputModal
                     title={modal.modalTitle}
                     onClose={modalActions.closeModal}
+                    actionCallback={modalActions.updatePerson}
                 />
             case "delete-person":
-                return <DeleteModal/>
+                return <DeleteModal
+                    title={modal.modalTitle}
+                    itemName={modal.itemName}
+                    onClose={modalActions.closeModal}
+                    deleteAction={modalActions.deletePerson}
+                />
         }
     }
 

@@ -1,27 +1,22 @@
 import {MouseEvent} from "react";
-import {setModalStatus} from "../app-reducer";
+import {ItemNameType, setModalStatus} from "../app-reducer";
 import {ThunkAppDispatch} from "../store";
 
-type ItemNameType = {
-    firstName: string
-    lastName: string
-}
-
-export const changeModalStatus = (e: MouseEvent<HTMLElement>, dispatch: ThunkAppDispatch, itemID?: number, itemName?: ItemNameType) => {
+export const changeModalStatus = (e: MouseEvent<HTMLElement>, dispatch: ThunkAppDispatch, itemId?: number, itemName?: ItemNameType) => {
     const trigger: string | undefined = e.currentTarget.dataset.button
     if (trigger === 'add-person') {
         dispatch(setModalStatus({
             isShow: true,
             modalStatus: trigger,
-            modalTitle: 'Enter the first and last name of the new new person'
+            modalTitle: 'Enter the person data'
         }))
     }
     if (trigger === 'update-person') {
         dispatch(setModalStatus({
             isShow: true,
             modalStatus: trigger,
-            modalTitle: 'Enter the new first and last name of the person',
-            itemId: itemID
+            modalTitle: 'Enter the new person data',
+            itemId
         }))
     }
     if (trigger === 'delete-person') {
@@ -29,7 +24,8 @@ export const changeModalStatus = (e: MouseEvent<HTMLElement>, dispatch: ThunkApp
             isShow: true,
             modalStatus: trigger,
             modalTitle: 'Do you want to delete',
-            itemId: itemID,
+            itemId,
+            itemName
         }))
     }
 }
