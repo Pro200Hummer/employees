@@ -6,8 +6,12 @@ import {
     useUpdatePersonMutation
 } from "../api/persons-api";
 import {PersonType} from "../api/types";
+import {changeModalStatus} from "./utils/app-utils";
+import {useAppDispatch} from "./hooks/app-hooks";
+import {ModalContainer} from "../components/Modal/ModalContainer";
 
 export const App = () => {
+    const dispatch = useAppDispatch();
     const [add, setAdd] = useState<string>('')
     const [update, setUpdate] = useState<string>('')
 
@@ -45,23 +49,27 @@ export const App = () => {
     return (
         <div>
             <input type="text" value={add} onChange={addPersonHandler} placeholder={'Add person'}/>
-            <button onClick={addPersonClickHandler}>Add Person</button>
+            <button onClick={e => changeModalStatus(e, dispatch)} data-button={'add-person'}>Add Person</button>
             <div>
                 {
                     data && data.map((p: PersonType) => {
                         return (
                             <div key={p.id}>
-                                <p>{p.firstName}</p>
-                                <p>{p.lastName}</p>
-                                <button onClick={() => deleteHandler(p.id)}>X</button>
+                                <span>{p.firstName}</span>
+                                <span>{p.lastName}</span>
+                                <button
+                                    onClick={e => changeModalStatus(e, dispatch, p.id, {firstName: p.firstName, lastName: p.lastName})}
+                                    data-button={'delete-person'}
+                                >X</button>
                                 <input type="text" value={update} onChange={updatePersonHandler}
                                        placeholder={'Update person'}/>
-                                <button onClick={() => updatePersonClickHandler(p.id)}>Update Person</button>
+                                <button onClick={e => changeModalStatus(e, dispatch, p.id)} data-button={'update-person'}>Update Person</button>
                             </div>
                         )
                     })
                 }
             </div>
+            <ModalContainer/>
         </div>
     )
 };
