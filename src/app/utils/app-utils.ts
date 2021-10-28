@@ -1,6 +1,7 @@
 import {MouseEvent} from "react";
-import {ItemNameType, setModalStatus} from "../app-reducer";
 import {ThunkAppDispatch} from "../store";
+import {ItemNameType} from "../app-types";
+import {setModalStatus} from "../app-reducer";
 
 export const changeModalStatus = (e: MouseEvent<HTMLElement>, dispatch: ThunkAppDispatch, itemId?: number, itemName?: ItemNameType) => {
     const trigger: string | undefined = e.currentTarget.dataset.button

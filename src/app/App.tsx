@@ -4,6 +4,7 @@ import {PersonType} from "../api/types";
 import {changeModalStatus} from "./utils/app-utils";
 import {useAppDispatch} from "./hooks/app-hooks";
 import {ModalContainer} from "../components/Modal/ModalContainer";
+import {Toast} from "../components/Toast/Toast";
 
 export const App = () => {
     const {data, isLoading} = useGetPersonsQuery('');
@@ -49,6 +50,7 @@ export const App = () => {
                 }
             </div>
             <ModalContainer/>
+            <Toast/>
         </div>
     )
 };

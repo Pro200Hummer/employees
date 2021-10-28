@@ -1,9 +1,9 @@
 import React, {FC} from "react";
-import {ModalType} from "../../app/app-reducer";
 import style from './Modal.module.scss'
 import {InputModal} from "./ModalComponents/InputModal/InputModal";
 import {DeleteModal} from "./ModalComponents/DeleteModal/DeleteModal";
 import {ModalActions} from "./ModalContainer";
+import {ModalType} from "../../app/app-types";
 
 type ModalPropsType = {
     modal: ModalType

@@ -1,41 +1,31 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-
-export type ModalStatusType = 'no-status' | 'add-person' | 'update-person' | 'delete-person'
-
-export type ItemNameType = {
-    firstName: string
-    lastName: string
-}
-
-export type ModalType = {
-    isShow: boolean
-    modalStatus: ModalStatusType
-    modalTitle: string
-    itemId?: number
-    itemName?: ItemNameType | null
-}
-
-export type AppInitialStateType = {
-    modal: ModalType
-}
+import {AppInitialStateType, ModalType, ToastType} from "./app-types";
 
 export const appSlice = createSlice({
     name: 'app',
     initialState: {
-      modal:{
-          isShow: false,
-          modalTitle: '',
-          modalStatus: 'no-status',
-          itemId: 0,
-          itemTitle: null
-      }
+        modal: {
+            isShow: false,
+            modalTitle: '',
+            modalStatus: 'no-status',
+            itemId: 0,
+            itemTitle: null
+        },
+        toast: {
+            isShow: false,
+            toastStatus: 'no-status',
+            toastMessage: ''
+        }
     } as AppInitialStateType,
-    reducers:{
+    reducers: {
         setModalStatus: (state, action: PayloadAction<ModalType>) => {
             state.modal = action.payload
+        },
+        setToastStatus: (state, action: PayloadAction<ToastType>) => {
+            state.toast = action.payload
         }
     }
 });
 
 export const appReducer = appSlice.reducer;
-export const {setModalStatus} = appSlice.actions;
+export const {setModalStatus, setToastStatus} = appSlice.actions;

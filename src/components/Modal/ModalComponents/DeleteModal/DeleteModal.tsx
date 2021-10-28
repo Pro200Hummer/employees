@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import style from './DeleteModal.module.scss'
-import {ItemNameType} from "../../../../app/app-reducer";
+import {ItemNameType} from "../../../../app/app-types";
 
 interface DeleteModal {
     title: string

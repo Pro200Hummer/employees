@@ -1,0 +1,50 @@
+@keyframes showMessage {
+  0% {
+    transform: translate(-300px);
+  }
+  10% {
+    transform: translate(0px);
+  }
+  90%{
+    transform: translate(0px);
+  }
+  100%{
+    transform: translate(-300px);
+  }
+}
+
+.success {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 200px;
+  color: #ffffff;
+  border: 1px solid #41e808;
+  background: #41e808;
+  padding: 5px 15px;
+  animation: showMessage 5.1s;
+}
+
+.error {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 200px;
+  color: #ffffff;
+  border: 1px solid #e50d0d;
+  background: #e50d0d;
+  padding: 5px 15px;
+  animation: showMessage 5.1s;
+}
+
+.info {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 200px;
+  color: #ffffff;
+  border: 1px solid #eadf09;
+  background: #eadf09;
+  padding: 5px 15px;
+  animation: showMessage 5.1s;
+}
