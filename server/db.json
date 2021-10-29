@@ -1,24 +1,9 @@
 {
   "persons": [
     {
-      "firstName": "Natali",
-      "lastName": "Hardy",
-      "id": 1
-    },
-    {
       "firstName": "Pavel",
-      "lastName": "React",
+      "lastName": "Nikol",
       "id": 2
-    },
-    {
-      "firstName": "Valera",
-      "lastName": "Tester",
-      "id": 3
-    },
-    {
-      "firstName": "Pavel",
-      "lastName": "Nikolaichyk",
-      "id": 4
     }
   ]
 }

@@ -1,7 +1,7 @@
 import {MouseEvent} from "react";
 import {ThunkAppDispatch} from "../store";
-import {ItemNameType} from "../app-types";
-import {setModalStatus} from "../app-reducer";
+import {ItemNameType, ToastStatusType} from "../app-types";
+import {setModalStatus, setToastStatus} from "../app-reducer";
 
 export const changeModalStatus = (e: MouseEvent<HTMLElement>, dispatch: ThunkAppDispatch, itemId?: number, itemName?: ItemNameType) => {
     const trigger: string | undefined = e.currentTarget.dataset.button
@@ -29,4 +29,11 @@ export const changeModalStatus = (e: MouseEvent<HTMLElement>, dispatch: ThunkApp
             itemName
         }))
     }
+};
+
+export const showToastHandler = (toastStatus: ToastStatusType, toastMessage: string, dispatch: ThunkAppDispatch) => {
+    dispatch(setToastStatus({isShow: true, toastStatus, toastMessage}))
+    setTimeout(() => {
+        dispatch(setToastStatus({isShow: false, toastStatus: 'no-status', toastMessage: ''}))
+    }, 5000)
 }
