@@ -1,10 +1,10 @@
 import React, {FC, memo, useCallback} from "react";
 import {Modal} from "./Modal";
 import {setModalStatus} from "../../app/app-reducer";
-import {showToastHandler} from "../../app/utils/app-utils";
 import {useAppDispatch, useAppSelector} from "../../app/hooks/app-hooks";
 import {useAddPersonMutation, useDeletePersonMutation, useUpdatePersonMutation} from "../../api/persons-api";
 import {AddPersonRequestType} from "../../api/types";
+import {useToast} from "../../app/utils/app-utils";
 
 export interface ModalActions {
     addPerson: (params: AddPersonRequestType) => void
@@ -17,33 +17,37 @@ export interface ModalActions {
 export const ModalContainer: FC = memo(() => {
 
     const modal = useAppSelector(state => state.app.modal);
+
     const dispatch = useAppDispatch();
+    const showToastHandler = useToast();
 
     const addPerson = useAddPersonMutation();
     const updatePerson = useUpdatePersonMutation();
     const deletePerson = useDeletePersonMutation();
+
+
 
     const modalActions: ModalActions = {
         addPerson: useCallback(async (params: AddPersonRequestType) => {
             await addPerson[0](params).unwrap()
                 .then(() => {
                     if (addPerson[1].isSuccess) {
-                        showToastHandler("succeed", 'New Person added successfully', dispatch)
+                        showToastHandler("succeed", 'New Person added successfully')
                     }
                     dispatch(setModalStatus({isShow: false, modalStatus: 'no-status', modalTitle: '',}))
                 })
-        }, [dispatch, addPerson]),
+        }, [dispatch, addPerson, showToastHandler]),
         updatePerson: useCallback(async (params: AddPersonRequestType) => {
             if (modal.itemId) {
                 await updatePerson[0]({...params, id: modal.itemId}).unwrap()
                     .then(() => {
                         if (updatePerson[1].isSuccess) {
-                            showToastHandler("succeed", 'Person updated successfully', dispatch)
+                            showToastHandler("succeed", 'Person updated successfully')
                         }
                     })
                 dispatch(setModalStatus({isShow: false, modalStatus: 'no-status', modalTitle: '',}))
             }
-        }, [dispatch, updatePerson, modal.itemId]),
+        }, [dispatch, updatePerson, modal.itemId, showToastHandler]),
         deletePerson: useCallback(async () => {
             if (modal.itemId) {
                 await deletePerson[0]({id: modal.itemId}).unwrap()
@@ -51,13 +55,13 @@ export const ModalContainer: FC = memo(() => {
                         if (deletePerson[1].isSuccess) {
                             showToastHandler(
                                 "succeed",
-                                `Person ${modal.itemName?.firstName} deleted successfully`,
-                                dispatch)
+                                `Person ${modal.itemName?.firstName} deleted successfully`
+                            )
                         }
                     })
                 dispatch(setModalStatus({isShow: false, modalStatus: 'no-status', modalTitle: '',}))
             }
-        }, [dispatch, deletePerson, modal.itemId, modal.itemName?.firstName]),
+        }, [dispatch, deletePerson, modal.itemId, modal.itemName?.firstName, showToastHandler]),
         backGroundOnClick: useCallback(() => {
             dispatch(setModalStatus({isShow: false, modalStatus: 'no-status', modalTitle: '',}))
         }, [dispatch]),

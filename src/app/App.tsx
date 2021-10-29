@@ -1,23 +1,22 @@
-import React, {MouseEvent, FC, memo, useCallback} from 'react';
+import React, {FC, memo, MouseEvent, useCallback} from 'react';
 import {useGetPersonsQuery} from "../api/persons-api";
 import {PersonType} from "../api/types";
-import {changeModalStatus} from "./utils/app-utils";
-import {useAppDispatch} from "./hooks/app-hooks";
 import {ModalContainer} from "../components/Modal/ModalContainer";
 import {Toast} from "../components/Toast/Toast";
+import {useModal} from "./utils/app-utils";
 
 export const App: FC = memo(() => {
     const {data, isLoading} = useGetPersonsQuery('');
 
-    const dispatch = useAppDispatch();
+    const changeModalStatus = useModal();
 
     const deleteButtonHandler = useCallback((e: MouseEvent<HTMLButtonElement>, param: PersonType) => {
-        changeModalStatus(e, dispatch, param.id, {firstName: param.firstName, lastName: param.lastName})
-    }, [dispatch])
+        changeModalStatus(e, param.id, {firstName: param.firstName, lastName: param.lastName})
+    }, [changeModalStatus])
 
     const updateButtonHandler = useCallback((e: MouseEvent<HTMLButtonElement>, id: number) => {
-        changeModalStatus(e, dispatch, id)
-    }, [dispatch])
+        changeModalStatus(e, id)
+    }, [changeModalStatus])
 
     if (isLoading) {
         return <h1>...Loading</h1>
@@ -25,7 +24,7 @@ export const App: FC = memo(() => {
 
     return (
         <div>
-            <button onClick={e => changeModalStatus(e, dispatch)} data-button={'add-person'}>Add Person</button>
+            <button onClick={e => changeModalStatus(e)} data-button={'add-person'}>Add Person</button>
             <div>
                 {
                     data && data.map((p: PersonType) => {
