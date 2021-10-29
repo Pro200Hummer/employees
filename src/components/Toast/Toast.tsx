@@ -1,9 +1,9 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import style from './Toast.module.scss'
 import {useAppDispatch, useAppSelector} from "../../app/hooks/app-hooks";
 import {setToastStatus} from "../../app/app-reducer";
 
-export const Toast: FC = () => {
+export const Toast: FC = memo(() => {
 
     const toast = useAppSelector(state => state.app.toast);
     const dispatch = useAppDispatch();
@@ -42,4 +42,4 @@ export const Toast: FC = () => {
             {toast.isShow ? setToast() : null}
         </>
     )
-};
+});

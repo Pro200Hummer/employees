@@ -1,4 +1,4 @@
-import React, {MouseEvent} from 'react';
+import React, {MouseEvent, FC, memo, useCallback} from 'react';
 import {useGetPersonsQuery} from "../api/persons-api";
 import {PersonType} from "../api/types";
 import {changeModalStatus} from "./utils/app-utils";
@@ -6,18 +6,18 @@ import {useAppDispatch} from "./hooks/app-hooks";
 import {ModalContainer} from "../components/Modal/ModalContainer";
 import {Toast} from "../components/Toast/Toast";
 
-export const App = () => {
+export const App: FC = memo(() => {
     const {data, isLoading} = useGetPersonsQuery('');
 
     const dispatch = useAppDispatch();
 
-    const deleteButtonHandler = (e: MouseEvent<HTMLButtonElement>, param: PersonType) => {
+    const deleteButtonHandler = useCallback((e: MouseEvent<HTMLButtonElement>, param: PersonType) => {
         changeModalStatus(e, dispatch, param.id, {firstName: param.firstName, lastName: param.lastName})
-    }
+    }, [dispatch])
 
-    const updateButtonHandler = (e: MouseEvent<HTMLButtonElement>, id: number) => {
+    const updateButtonHandler = useCallback((e: MouseEvent<HTMLButtonElement>, id: number) => {
         changeModalStatus(e, dispatch, id)
-    }
+    }, [dispatch])
 
     if (isLoading) {
         return <h1>...Loading</h1>
@@ -53,4 +53,4 @@ export const App = () => {
             <Toast/>
         </div>
     )
-};
+});

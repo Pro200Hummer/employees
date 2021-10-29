@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, memo} from "react";
 import style from './Modal.module.scss'
 import {InputModal} from "./ModalComponents/InputModal/InputModal";
 import {DeleteModal} from "./ModalComponents/DeleteModal/DeleteModal";
@@ -10,7 +10,7 @@ type ModalPropsType = {
     modalActions: ModalActions
 }
 
-export const Modal: FC<ModalPropsType> = props => {
+export const Modal: FC<ModalPropsType> = memo(props => {
     const {modal, modalActions} = props
 
     const setModal = () => {
@@ -47,4 +47,4 @@ export const Modal: FC<ModalPropsType> = props => {
             </div>
         </>
     )
-}
+});

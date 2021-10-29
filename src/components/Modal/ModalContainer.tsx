@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, memo, useCallback} from "react";
 import {Modal} from "./Modal";
 import {setModalStatus} from "../../app/app-reducer";
 import {showToastHandler} from "../../app/utils/app-utils";
@@ -14,7 +14,7 @@ export interface ModalActions {
     closeModal: () => void
 }
 
-export const ModalContainer: FC = () => {
+export const ModalContainer: FC = memo(() => {
 
     const modal = useAppSelector(state => state.app.modal);
     const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ export const ModalContainer: FC = () => {
     const deletePerson = useDeletePersonMutation();
 
     const modalActions: ModalActions = {
-        addPerson: async (params: AddPersonRequestType) => {
+        addPerson: useCallback(async (params: AddPersonRequestType) => {
             await addPerson[0](params).unwrap()
                 .then(() => {
                     if (addPerson[1].isSuccess) {
@@ -32,8 +32,8 @@ export const ModalContainer: FC = () => {
                     }
                     dispatch(setModalStatus({isShow: false, modalStatus: 'no-status', modalTitle: '',}))
                 })
-        },
-        updatePerson: async (params: AddPersonRequestType) => {
+        }, [dispatch, addPerson]),
+        updatePerson: useCallback(async (params: AddPersonRequestType) => {
             if (modal.itemId) {
                 await updatePerson[0]({...params, id: modal.itemId}).unwrap()
                     .then(() => {
@@ -43,8 +43,8 @@ export const ModalContainer: FC = () => {
                     })
                 dispatch(setModalStatus({isShow: false, modalStatus: 'no-status', modalTitle: '',}))
             }
-        },
-        deletePerson: async () => {
+        }, [dispatch, updatePerson, modal.itemId]),
+        deletePerson: useCallback(async () => {
             if (modal.itemId) {
                 await deletePerson[0]({id: modal.itemId}).unwrap()
                     .then(() => {
@@ -57,15 +57,15 @@ export const ModalContainer: FC = () => {
                     })
                 dispatch(setModalStatus({isShow: false, modalStatus: 'no-status', modalTitle: '',}))
             }
-        },
-        backGroundOnClick: () => {
+        }, [dispatch, deletePerson, modal.itemId, modal.itemName?.firstName]),
+        backGroundOnClick: useCallback(() => {
             dispatch(setModalStatus({isShow: false, modalStatus: 'no-status', modalTitle: '',}))
-        },
-        closeModal: () => {
+        }, [dispatch]),
+        closeModal: useCallback(() => {
             dispatch(setModalStatus({isShow: false, modalStatus: 'no-status', modalTitle: '',}))
-        }
+        }, [dispatch])
     }
 
     return <>{modal.modalStatus === 'no-status' ? <></> : <Modal modal={modal} modalActions={modalActions}/>}</>
 
-};
+});

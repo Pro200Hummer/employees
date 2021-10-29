@@ -1,15 +1,15 @@
-import React, {FC} from "react";
+import React, {FC, memo} from "react";
 import style from './DeleteModal.module.scss'
 import {ItemNameType} from "../../../../app/app-types";
 
-interface DeleteModal {
+type DeleteModalType = {
     title: string
     itemName: ItemNameType | null | undefined
     onClose: () => void
     deleteAction: () => void
 }
 
-export const DeleteModal: FC<DeleteModal> = props => {
+export const DeleteModal: FC<DeleteModalType> = memo(props => {
     const {title, itemName, onClose, deleteAction} = props
 
     const personName = itemName && `${itemName.firstName} ${itemName.lastName}`
@@ -26,4 +26,4 @@ export const DeleteModal: FC<DeleteModal> = props => {
             </div>
         </>
     )
-};
+});

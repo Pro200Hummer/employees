@@ -1,14 +1,14 @@
-import React, {ChangeEvent, FC, useState} from "react";
+import React, {ChangeEvent, FC, memo, useState} from "react";
 import style from './InputModal.module.scss'
 import {AddPersonRequestType} from "../../../../api/types";
 
-interface InputModal {
+type InputModalType = {
     title: string
     onClose: () => void
     actionCallback: (params: AddPersonRequestType) => void
 }
 
-export const InputModal: FC<InputModal> = props => {
+export const InputModal: FC<InputModalType> = memo(props => {
     const {title, onClose, actionCallback} = props
 
     const [firstName, setFirstName] = useState<string>('')
@@ -58,4 +58,4 @@ export const InputModal: FC<InputModal> = props => {
             </div>
         </>
     )
-};
+});
