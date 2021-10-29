@@ -27,7 +27,6 @@ export const ModalContainer: FC = () => {
         addPerson: async (params: AddPersonRequestType) => {
             await addPerson[0](params).unwrap()
                 .then(() => {
-                    console.log(addPerson[1].isSuccess)
                     if (addPerson[1].isSuccess) {
                         showToastHandler("succeed", 'New Person added successfully', dispatch)
                     }
@@ -38,7 +37,6 @@ export const ModalContainer: FC = () => {
             if (modal.itemId) {
                 await updatePerson[0]({...params, id: modal.itemId}).unwrap()
                     .then(() => {
-                        console.log(updatePerson[1].isSuccess)
                         if (updatePerson[1].isSuccess) {
                             showToastHandler("succeed", 'Person updated successfully', dispatch)
                         }
@@ -50,7 +48,6 @@ export const ModalContainer: FC = () => {
             if (modal.itemId) {
                 await deletePerson[0]({id: modal.itemId}).unwrap()
                     .then(() => {
-                        console.log(deletePerson[1].isSuccess)
                         if (deletePerson[1].isSuccess) {
                             showToastHandler(
                                 "succeed",

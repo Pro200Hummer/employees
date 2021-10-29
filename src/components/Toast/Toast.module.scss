@@ -48,3 +48,35 @@
   padding: 5px 15px;
   animation: showMessage 5.1s;
 }
+
+.close {
+  display: block;
+  position: absolute;
+  right: 35px;
+  top: 17px;
+  width: 10px;
+  height: 10px;
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  &:before, &:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 20px;
+    width: 2px;
+    background-color: #333;
+  }
+
+  &:before {
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+  }
+}

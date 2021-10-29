@@ -1,16 +1,23 @@
 import React, {FC} from 'react';
 import style from './Toast.module.scss'
-import {useAppSelector} from "../../app/hooks/app-hooks";
+import {useAppDispatch, useAppSelector} from "../../app/hooks/app-hooks";
+import {setToastStatus} from "../../app/app-reducer";
 
 export const Toast: FC = () => {
 
-    const toast = useAppSelector(state => state.app.toast)
+    const toast = useAppSelector(state => state.app.toast);
+    const dispatch = useAppDispatch();
+
+    const onClose = () => {
+        dispatch(setToastStatus({isShow: false, toastStatus: 'no-status', toastMessage: ''}))
+    }
 
     const setToast = () => {
         switch (toast.toastStatus) {
             case "succeed":
                 return <div className={style.success}>
-                    {toast.toastMessage}
+                    <p>{toast.toastMessage}</p>
+                    <span className={style.close} onClick={onClose}/>
                 </div>
             case "error":
                 return <div className={style.error}>
