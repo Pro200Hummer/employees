@@ -1,8 +1,6 @@
+@import './src/common/CommonStyles.module';
+
 .background {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-  align-items: center;
   padding: 5px 0 5px 0;
   position: fixed;
   top: 0;
@@ -15,9 +13,7 @@
 }
 
 .modal {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
+  @include displayFlex(column, nowrap, space-between, '');
   position: fixed;
   width: 400px;
   height: 230px;
