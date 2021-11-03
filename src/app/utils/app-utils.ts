@@ -1,8 +1,9 @@
 import {MouseEvent} from "react";
 import {ThunkAppDispatch} from "../store";
-import {ItemNameType, ToastStatusType} from "../app-types";
-import {setModalStatus, setToastStatus} from "../app-reducer";
+import {ItemNameType, ToastType} from "../app-types";
+import {deleteToast, setModalStatus, setToast} from "../app-reducer";
 import {useAppDispatch} from "../hooks/app-hooks";
+import {v1} from "uuid";
 
 export const useModal = () => {
     const dispatch: ThunkAppDispatch = useAppDispatch();
@@ -36,13 +37,20 @@ export const useModal = () => {
     }
 };
 
-export const useToast = () => {
+interface UseToastReturn{
+    setNewToast: (toastType:ToastType, toastMessage: string) => void,
+    deleteToast: (id: string) => void
+}
+export const useToast = ():UseToastReturn => {
     const dispatch: ThunkAppDispatch = useAppDispatch();
 
-    return (toastStatus: ToastStatusType, toastMessage: string) =>{
-        dispatch(setToastStatus({isShow: true, toastStatus, toastMessage}))
-        setTimeout(() => {
-            dispatch(setToastStatus({isShow: false, toastStatus: 'no-status', toastMessage: ''}))
-        }, 5000)
+    return {
+        setNewToast: (toastType:ToastType, toastMessage: string) => {
+            const toastId = v1()
+            dispatch(setToast({id: toastId, toastType, toastTitle: 'Title', toastMessage}))
+        },
+        deleteToast: (id: string) => {
+            dispatch(deleteToast(id))
+        }
     }
 };

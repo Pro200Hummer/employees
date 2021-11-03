@@ -1,5 +1,5 @@
 export type ModalStatusType = 'no-status' | 'add-person' | 'update-person' | 'delete-person';
-export type ToastStatusType = 'no-status' | 'succeed' | 'error' | 'info';
+export type ToastType = 'success' | 'error' | 'info'
 
 export type ItemNameType = {
     firstName: string
@@ -14,13 +14,14 @@ export type ModalType = {
     itemName?: ItemNameType | null
 };
 
-export type ToastType = {
-    isShow: boolean
-    toastStatus: ToastStatusType
+export type ToastNotificationType = {
+    id: string
+    toastType: ToastType
+    toastTitle: string
     toastMessage: string
 }
 
 export type AppInitialStateType = {
     modal: ModalType
-    toast: ToastType
+    toast: ToastNotificationType[]
 };

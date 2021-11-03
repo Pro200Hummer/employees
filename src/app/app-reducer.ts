@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppInitialStateType, ModalType, ToastType} from "./app-types";
+import {AppInitialStateType, ModalType, ToastNotificationType} from "./app-types";
 
 export const appSlice = createSlice({
     name: 'app',
@@ -11,21 +11,20 @@ export const appSlice = createSlice({
             itemId: 0,
             itemTitle: null
         },
-        toast: {
-            isShow: false,
-            toastStatus: 'no-status',
-            toastMessage: ''
-        }
+        toast: []
     } as AppInitialStateType,
     reducers: {
         setModalStatus: (state, action: PayloadAction<ModalType>) => {
             state.modal = action.payload
         },
-        setToastStatus: (state, action: PayloadAction<ToastType>) => {
-            state.toast = action.payload
+        setToast: (state, action: PayloadAction<ToastNotificationType>) => {
+            state.toast.push(action.payload)
+        },
+        deleteToast: (state,action:PayloadAction<string>) => {
+            return {...state, toast: state.toast.filter(t => t.id !== action.payload)}
         }
     }
 });
 
 export const appReducer = appSlice.reducer;
-export const {setModalStatus, setToastStatus} = appSlice.actions;
+export const {setModalStatus, setToast, deleteToast} = appSlice.actions;

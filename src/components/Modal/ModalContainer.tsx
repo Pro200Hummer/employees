@@ -19,7 +19,7 @@ export const ModalContainer: FC = memo(() => {
     const modal = useAppSelector(state => state.app.modal);
 
     const dispatch = useAppDispatch();
-    const showToastHandler = useToast();
+    const {setNewToast} = useToast();
 
     const addPerson = useAddPersonMutation();
     const updatePerson = useUpdatePersonMutation();
@@ -32,36 +32,36 @@ export const ModalContainer: FC = memo(() => {
             await addPerson[0](params).unwrap()
                 .then(() => {
                     if (addPerson[1].isSuccess) {
-                        showToastHandler("succeed", 'New Person added successfully')
+                        setNewToast('success', 'New Person added successfully')
                     }
                     dispatch(setModalStatus({isShow: false, modalStatus: 'no-status', modalTitle: '',}))
                 })
-        }, [dispatch, addPerson, showToastHandler]),
+        }, [dispatch, addPerson, setNewToast]),
         updatePerson: useCallback(async (params: AddPersonRequestType) => {
             if (modal.itemId) {
                 await updatePerson[0]({...params, id: modal.itemId}).unwrap()
                     .then(() => {
                         if (updatePerson[1].isSuccess) {
-                            showToastHandler("succeed", 'Person updated successfully')
+                            setNewToast('success', 'Person updated successfully')
                         }
                     })
                 dispatch(setModalStatus({isShow: false, modalStatus: 'no-status', modalTitle: '',}))
             }
-        }, [dispatch, updatePerson, modal.itemId, showToastHandler]),
+        }, [dispatch, updatePerson, modal.itemId, setNewToast]),
         deletePerson: useCallback(async () => {
             if (modal.itemId) {
                 await deletePerson[0]({id: modal.itemId}).unwrap()
                     .then(() => {
                         if (deletePerson[1].isSuccess) {
-                            showToastHandler(
-                                "succeed",
+                            setNewToast(
+                                'success',
                                 `Person ${modal.itemName?.firstName} deleted successfully`
                             )
                         }
                     })
                 dispatch(setModalStatus({isShow: false, modalStatus: 'no-status', modalTitle: '',}))
             }
-        }, [dispatch, deletePerson, modal.itemId, modal.itemName?.firstName, showToastHandler]),
+        }, [dispatch, deletePerson, modal.itemId, modal.itemName?.firstName, setNewToast]),
         backGroundOnClick: useCallback(() => {
             dispatch(setModalStatus({isShow: false, modalStatus: 'no-status', modalTitle: '',}))
         }, [dispatch]),

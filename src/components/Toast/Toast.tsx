@@ -1,45 +1,63 @@
 import React, {FC, memo} from 'react';
-import style from './Toast.module.scss'
-import {useAppDispatch, useAppSelector} from "../../app/hooks/app-hooks";
-import {setToastStatus} from "../../app/app-reducer";
+import style from './Toast.module.scss';
+import {ToastType} from "../../app/app-types";
+import {FaCheck, FaExclamationCircle, FaInfoCircle, FaRegWindowClose} from "react-icons/all";
+import {useAppSelector} from "../../app/hooks/app-hooks";
+import {useToast} from "../../app/utils/app-utils";
 
 export const Toast: FC = memo(() => {
 
-    const toast = useAppSelector(state => state.app.toast);
-    const dispatch = useAppDispatch();
+    const toast = useAppSelector(state => state.app.toast)
+    const {deleteToast} = useToast();
 
-    const onClose = () => {
-        dispatch(setToastStatus({isShow: false, toastStatus: 'no-status', toastMessage: ''}))
+    const generateIcon = (type: ToastType) => {
+        switch (type) {
+            case 'success':
+                return <FaCheck/>
+            case 'info':
+                return <FaInfoCircle/>
+            case 'error':
+                return <FaExclamationCircle/>
+            default:
+                return
+        }
     }
-
-    const setToast = () => {
-        switch (toast.toastStatus) {
-            case "succeed":
-                return <div className={style.success}>
-                    <p>{toast.toastMessage}</p>
-                    <span className={style.close} onClick={onClose}/>
-                </div>
-            case "error":
-                return <div className={style.error}>
-                    {toast.toastMessage}
-                </div>
-            case "info":
-                return <div className={style.info}>
-                    {toast.toastMessage}
-                </div>
+    const generateBackgroundColor = (type: ToastType) => {
+        switch (type) {
+            case 'success':
+                return '#2AA80AFF'
+            case 'info':
+                return '#10b795'
+            case 'error':
+                return '#CC0707FF'
+            default:
+                return
         }
     }
 
-    /*const triggerButtons = <div>
-                <button onClick={() => showHandler('succeed')}>Show Succeed</button>
-                <button onClick={() => showHandler('error')}>Show Error</button>
-                <button onClick={() => showHandler('info')}>Show Info</button>
-            </div>*/
-
-
     return (
-        <>
-            {toast.isShow ? setToast() : null}
-        </>
+        <div className={style.notificationContainer}>
+            {toast.map(t => {
+                setTimeout(() => {
+                    deleteToast(t.id)
+                }, 3000)
+                return (
+                    <div
+                        key={t.id}
+                        className={`${style.notification} ${style.toast}`}
+                        style={{backgroundColor: generateBackgroundColor(t.toastType)}}
+                    >
+                        <FaRegWindowClose className={style.closeButton} onClick={() => deleteToast(t.id)}/>
+                        <div className={style.notificationImage}>
+                            {generateIcon(t.toastType)}
+                        </div>
+                        <div>
+                            <p className={style.notificationTitle}>{t.toastTitle}</p>
+                            <p className={style.notificationMessage}>{t.toastMessage}</p>
+                        </div>
+                    </div>
+                )
+            })}
+        </div>
     )
 });

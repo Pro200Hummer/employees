@@ -1,23 +1,92 @@
-@import './src/common/CommonStyles.module';
-
-.success {
-  @include Toast();
-  border: 1px solid #289109;
-  background: #289109;
+@keyframes toast-in-left {
+  from {
+    transform: translate(-100%);
+  }
+  to {
+    transform: translate(0);
+  }
 }
 
-.error {
-  @include Toast();
-  border: 1px solid #a10404;
-  background: #a10404;
+.notificationContainer {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  z-index: 9999;
+  animation: toast-in-left .7s;
+
+  .notification {
+    width: 300px;
+    max-height: 100px;
+    background: #fff;
+    transition: .3s ease;
+    position: relative;
+    pointer-events: auto;
+    overflow: hidden;
+    margin: 0 0 15px 6px;
+    padding: 20px;
+    border-radius: 3px;
+    box-shadow: 0 0 10px #999;
+    color: #000;
+    opacity: .9;
+
+    &:hover{
+      box-shadow: 0 0 12px #fff;
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+
+  .toast {
+    height: 50px;
+    width: 365px;
+    color: #fff;
+    padding: 20px 15px 10px 10px;
+  }
+
+  .notificationTitle {
+    width: 300px;
+    height: 18px;
+    margin: 0 0 6px 0;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: left;
+  }
+
+  .notificationMessage {
+    height: 18px;
+    margin: 0 0 0 -1px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .notificationImage {
+    float: left;
+    margin-right: 15px;
+    font-size: 34px;
+  }
+
+  .closeButton{
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    font-size: 22px;
+
+    &:hover{
+      box-shadow: 0 0 5px #fff;
+    }
+  }
 }
 
-.info {
-  @include Toast();
-  border: 1px solid #948f05;
-  background: #948f05;
-}
 
-.close {
-  @include Close();
-}
+
+
+
+
+
+
+
