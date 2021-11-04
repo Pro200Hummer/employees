@@ -1,29 +1,3 @@
 {
-  "persons": [
-    {
-      "firstName": "Natali",
-      "lastName": "Tester",
-      "id": 3
-    },
-    {
-      "firstName": "Pavel",
-      "lastName": "React",
-      "id": 4
-    },
-    {
-      "firstName": "Artsyom",
-      "lastName": "Dj",
-      "id": 5
-    },
-    {
-      "firstName": "Dimych",
-      "lastName": "Boss",
-      "id": 6
-    },
-    {
-      "firstName": "Natulil",
-      "lastName": "Opasnost",
-      "id": 8
-    }
-  ]
+  "persons": []
 }

@@ -1,18 +1,3 @@
-@keyframes showMessage {
-  0% {
-    transform: translate(-300px);
-  }
-  10% {
-    transform: translate(0px);
-  }
-  90%{
-    transform: translate(0px);
-  }
-  100%{
-    transform: translate(-300px);
-  }
-}
-
 @mixin displayFlex($direction, $wrap, $just, $align){
   display: flex;
   flex-direction: $direction;

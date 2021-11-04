@@ -8,7 +8,7 @@ import {v1} from "uuid";
 export const useModal = () => {
     const dispatch: ThunkAppDispatch = useAppDispatch();
 
-    return (e: MouseEvent<HTMLElement>, itemId?: number, itemName?: ItemNameType) => {
+    return (e: MouseEvent<HTMLButtonElement | SVGElement |HTMLDivElement>, itemId?: number, itemName?: ItemNameType) => {
         const trigger: string | undefined = e.currentTarget.dataset.button
         if (trigger === 'add-person') {
             dispatch(setModalStatus({

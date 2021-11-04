@@ -1,8 +1,8 @@
 @keyframes toast-in-left {
-  from {
+  0% {
     transform: translate(-100%);
   }
-  to {
+  100% {
     transform: translate(0);
   }
 }
@@ -15,7 +15,6 @@
   bottom: 12px;
   left: 12px;
   z-index: 9999;
-  animation: toast-in-left .7s;
 
   .notification {
     width: 300px;
@@ -31,6 +30,7 @@
     box-shadow: 0 0 10px #999;
     color: #000;
     opacity: .9;
+    animation: toast-in-left .7s;
 
     &:hover{
       box-shadow: 0 0 12px #fff;
