@@ -1,3 +1,14 @@
 {
-  "persons": []
+  "persons": [
+    {
+      "firstName": "Pavel",
+      "lastName": "React",
+      "id": 1
+    },
+    {
+      "firstName": "Natali",
+      "lastName": "Tester",
+      "id": 2
+    }
+  ]
 }
